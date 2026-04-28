@@ -1,0 +1,1 @@
+enum DecisionType { save, invest }
