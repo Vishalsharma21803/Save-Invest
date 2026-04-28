@@ -2,5 +2,7 @@ enum SessionEndReason {
   userDismissed,
   closedByApp,
   launchFailed,
-  unsupportedPartialCustomTabs,
+  unsupportedCustomTabs,
+  actionSave,
+  actionInvest,
 }
