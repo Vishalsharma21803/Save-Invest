@@ -61,18 +61,24 @@ class _ShoppingSessionScreenState extends State<ShoppingSessionScreen> {
 
     switch (endReason) {
       case SessionEndReason.actionSave:
+        _log('decision: goDecision(save)');
         await _goDecision(DecisionType.save);
       case SessionEndReason.actionInvest:
+        _log('decision: goDecision(invest)');
         await _goDecision(DecisionType.invest);
       case SessionEndReason.userDismissed:
+        _log('decision: returnHome(userDismissed)');
         _returnHome();
       case SessionEndReason.closedByApp:
+        _log('decision: returnHome(closedByApp)');
         _returnHome();
       case SessionEndReason.unsupportedCustomTabs:
+        _log('decision: unsupportedCustomTabs -> message+home');
         await _showMessageAndReturnHome(
           'Custom Tabs is not supported on this device/browser.',
         );
       case SessionEndReason.launchFailed:
+        _log('decision: launchFailed -> message+home');
         await _showMessageAndReturnHome('Unable to open retailer right now.');
     }
   }
@@ -96,6 +102,7 @@ class _ShoppingSessionScreenState extends State<ShoppingSessionScreen> {
       _isClosing = true;
       _didNavigateAway = true;
     });
+    _log('goDecision start type=$type platform=${Platform.operatingSystem}');
     if (!Platform.isAndroid) {
       await ShoppingSessionService.endSession();
     }
@@ -133,6 +140,7 @@ class _ShoppingSessionScreenState extends State<ShoppingSessionScreen> {
     });
     await ShoppingSessionService.endSession();
     if (mounted) {
+      _log('closeTapped -> pop');
       Navigator.of(context).pop();
     }
   }
@@ -153,6 +161,7 @@ class _ShoppingSessionScreenState extends State<ShoppingSessionScreen> {
       return;
     }
     _didNavigateAway = true;
+    _log('returnHome pop');
     Navigator.of(context).pop();
   }
 
